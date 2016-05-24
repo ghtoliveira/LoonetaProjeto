@@ -20,17 +20,36 @@
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>
-                                        <form class="form-inline" method="POST" action="{{ route('adicionarAdministrador') }}">
-                                            {!! csrf_field() !!}
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <form class="form-inline" method="POST" action="{{ route('adicionarAdministrador') }}">
+                                                        {!! csrf_field() !!}
 
-                                            <div class="form-group">
-                                                <input type="hidden" value="{{ $usuario->id }}" name="usuarioId">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" class="btn btn-danger" id="btnAdicionarAdministrador" value="Tornar Administrador"/>
-                                            </div>
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="{{ $usuario->id }}" name="usuarioId">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-danger" id="btnAdicionarAdministrador" value="Tornar Administrador"/>
+                                                        </div>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <form class="form-inline" method="POST" action="{{ route('adicionarModerador') }}">
+                                                        {!! csrf_field() !!}
 
-                                        </form>
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="{{ $usuario->id }}" name="usuarioId">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-danger" id="btnAdicionarModerador" value="Tornar Moderador"/>
+                                                        </div>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                     @foreach($usuario->funcoes as $funcao)
                                         <td>{{ $funcao->nome }}</td>

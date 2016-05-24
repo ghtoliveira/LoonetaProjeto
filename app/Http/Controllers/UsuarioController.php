@@ -13,7 +13,16 @@ class UsuarioController extends Controller
 
 
     public function moderadores(){
-        //mostrar view contendo todos os moderadores e um form para adicionar mais
+        $usuarios = User::all();
+        $moderadores = array();
+        foreach($usuarios as $usuario){
+            if($usuario->funcoes()->where('nome', 'moderador')->first()){
+                $moderadores[] = $usuario;
+            }
+        }
+
+        //TODO: Criar view para os moderadores. Por enquanto usar a de administradores
+        return view('funcoes\moderadores', array('moderadores' => $moderadores));
     }
 
     public function administradores(){
@@ -25,17 +34,23 @@ class UsuarioController extends Controller
             }
         }
 
-        //echo print_r($admins);
 
         return view('funcoes\administradores', array('admins' => $admins));
     }
 
     public function adicionarModerador(Request $request){
-        //adicionar um novo moderador à base de dados
+        $usuario = User::find($request->input('usuarioId'));
+        $funcao = Funcao::all()->where('nome', 'moderador')->first();
+        $usuario->funcoes()->attach($funcao->id);
+        return $this->moderadores();
     }
 
     public function removerModerador(Request $request){
-        //Remover moderador
+        $usuario = User::find($request->input('usuarioId'));
+        $funcao = Funcao::all()->where('nome', 'moderador')->first();
+        $usuario->funcoes()->detach($funcao->id);
+
+        return $this->moderadores();
     }
 
     public function adicionarAdministrador(Request $request){

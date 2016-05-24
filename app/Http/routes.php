@@ -43,6 +43,13 @@ Route::get('/administradores', array(
     'funcoes' => ['administrador']
 ));
 
+Route::get('/moderadores', array(
+    'as' => 'moderadores',
+    'uses' => 'UsuarioController@moderadores',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
+));
+
 Route::post('buscarUsuario', array (
    'as' => 'buscarUsuario',
     'uses' => 'UsuarioController@buscar',
@@ -57,9 +64,23 @@ Route::post('adicionarAdministrador', array (
     'funcoes' => ['administrador']
 ));
 
+Route::post('adicionarModerador', array (
+    'as' => 'adicionarModerador',
+    'uses' => 'UsuarioController@adicionarModerador',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
+));
+
 Route::post('removerAdministrador', array (
     'as' => 'removerAdministrador',
     'uses' => 'UsuarioController@removerAdministrador',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
+));
+
+Route::post('removerModerador', array (
+    'as' => 'removerModerador',
+    'uses' => 'UsuarioController@removerModerador',
     'middleware' => 'funcoes',
     'funcoes' => ['administrador']
 ));
