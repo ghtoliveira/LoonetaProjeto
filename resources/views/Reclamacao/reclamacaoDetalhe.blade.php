@@ -68,6 +68,19 @@
                                         <td>{{ $comentario->titulo }}</td>
                                         <td>{{ $comentario->comentario }}</td>
                                         <td>{{ $comentario->usuario->votoReclamacao($reclamacao->id) }}</td>
+                                        @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
+                                        <td>
+                                            <form class="form-inline" method="POST" action="{{ route('modDeletarComentario') }}">
+                                                {!! csrf_field() !!}
+                                                <div class="form-group">
+                                                    <input type="hidden" value="{{ $comentario->id }}" name="comentarioId">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" class="btn btn-danger" value="Deletar Comentário">
+                                                </div>
+                                            </form>
+                                        </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </table>

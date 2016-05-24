@@ -48,4 +48,26 @@ class User extends Authenticatable
 
     }
 
+    public function possuiFuncoes($funcoes){
+        if(is_array($funcoes)){
+            foreach ($funcoes as $funcao){
+                if($this->possuiFuncao($funcao))
+                    return true;
+            }
+        } else {
+            if($this->possuiFuncao($funcoes))
+                return true;
+        }
+
+        return false;
+    }
+
+    public function possuiFuncao($funcao){
+        if($this->funcoes()->where('nome', $funcao)->first())
+            return true;
+        else
+            return false;
+    }
+
+
 }

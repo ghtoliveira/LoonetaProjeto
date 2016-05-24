@@ -22,7 +22,7 @@ Route::get('/reclamar', 'ReclamacaoController@reclamar');
 Route::get('/reclamacao/{id}', 'ReclamacaoController@detalhes');
 
 
-//Route::post('post_criar_reclamacao', 'ReclamacaoController@votoPositivo');
+
 Route::post('post_criar_reclamacao', 'ReclamacaoController@reclamacaoRedirect');
 Route::post('reclamacao/comentar', 'ComentarioController@comentar');
 
@@ -38,22 +38,37 @@ Route::post('/votoNegativo', array(
 
 Route::get('/administradores', array(
     'as' => 'administradores',
-    'uses' => 'UsuarioController@administradores'
+    'uses' => 'UsuarioController@administradores',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
 ));
 
 Route::post('buscarUsuario', array (
    'as' => 'buscarUsuario',
-    'uses' => 'UsuarioController@buscar'
+    'uses' => 'UsuarioController@buscar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
 ));
 
 Route::post('adicionarAdministrador', array (
     'as' => 'adicionarAdministrador',
-    'uses' => 'UsuarioController@adicionarAdministrador'
+    'uses' => 'UsuarioController@adicionarAdministrador',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
 ));
 
 Route::post('removerAdministrador', array (
     'as' => 'removerAdministrador',
-    'uses' => 'UsuarioController@removerAdministrador'
+    'uses' => 'UsuarioController@removerAdministrador',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador']
+));
+
+Route::post('modDeletarComentario', array (
+    'as' => 'modDeletarComentario',
+    'uses' => 'ComentarioController@deletar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
 ));
 
 Route::auth();
