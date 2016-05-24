@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User as User;
 use App\Funcao as Funcao;
+use App\Punicao as Punicao;
 
 class UsuarioController extends Controller
 {
@@ -21,7 +22,6 @@ class UsuarioController extends Controller
             }
         }
 
-        //TODO: Criar view para os moderadores. Por enquanto usar a de administradores
         return view('funcoes\moderadores', array('moderadores' => $moderadores));
     }
 
@@ -83,9 +83,15 @@ class UsuarioController extends Controller
     }
 
 
+    public function mutar(Request $request){
+        $usuario = User::find($request->input('usuarioId'));
+        $mute = Punicao::all()->where('nome','mutado')->first();
+        $usuario->punicoes()->attach($mute->id);
+
+        //TODO: Criar uma view/atuailizar a página ao mutar usuário
 
 
-
-
+        return view('home');
+    }
 
 }

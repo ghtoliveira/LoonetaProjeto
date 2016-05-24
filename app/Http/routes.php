@@ -92,6 +92,13 @@ Route::post('modDeletarComentario', array (
     'funcoes' => ['administrador', 'moderador']
 ));
 
+Route::post('modMutarUsuario', array (
+    'as' => 'modMutarUsuario',
+    'uses' => 'UsuarioController@mutar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

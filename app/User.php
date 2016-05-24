@@ -69,5 +69,15 @@ class User extends Authenticatable
             return false;
     }
 
+    public function isMutado(){
+        $mutado = $this->punicoes()->where('nome','mutado')->first();
+        if($mutado){
+           return true;
+        }
+
+        return false;
+
+    }
+
 
 }

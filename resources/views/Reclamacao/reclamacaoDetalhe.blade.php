@@ -70,15 +70,30 @@
                                         <td>{{ $comentario->usuario->votoReclamacao($reclamacao->id) }}</td>
                                         @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
                                         <td>
-                                            <form class="form-inline" method="POST" action="{{ route('modDeletarComentario') }}">
-                                                {!! csrf_field() !!}
-                                                <div class="form-group">
-                                                    <input type="hidden" value="{{ $comentario->id }}" name="comentarioId">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-danger" value="Deletar Comentário">
-                                                </div>
-                                            </form>
+                                            <table>
+                                                <tr>
+                                                    <form class="form-inline" method="POST" action="{{ route('modDeletarComentario') }}">
+                                                        {!! csrf_field() !!}
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="{{ $comentario->id }}" name="comentarioId">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-danger" value="Deletar Comentário">
+                                                        </div>
+                                                    </form>
+                                                </tr>
+                                                <tr>
+                                                    <form class="form-inline" method="POST" action="{{ route('modMutarUsuario') }}">
+                                                        {!! csrf_field() !!}
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="{{ $comentario->usuario->id }}" name="usuarioId">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="submit" class="btn btn-danger" value="Mutar Usuário">
+                                                        </div>
+                                                    </form>
+                                                </tr>
+                                            </table>
                                         </td>
                                         @endif
                                     </tr>
