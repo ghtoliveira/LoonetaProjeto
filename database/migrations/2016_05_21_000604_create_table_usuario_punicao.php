@@ -28,6 +28,6 @@ class CreateTableUsuarioPunicao extends Migration
      */
     public function down()
     {
-        //
+        Schema:drop('usuario_punicao');
     }
 }
