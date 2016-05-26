@@ -94,4 +94,12 @@ class UsuarioController extends Controller
         return view('home');
     }
 
+    public function desmutar(Request $request){
+        $usuario = User::find($request->input('usuarioId'));
+        $mute = Punicao::all()->where('nome','mutado')->first();
+        $usuario->punicoes()->detach($mute->id);
+
+        return view('home');
+    }
+
 }

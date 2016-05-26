@@ -99,6 +99,13 @@ Route::post('modMutarUsuario', array (
     'funcoes' => ['administrador', 'moderador']
 ));
 
+Route::post('modDesmutarUsuario', array (
+    'as' => 'modDesmutarUsuario',
+    'uses' => 'UsuarioController@desmutar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
