@@ -1,33 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
+<!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">-->
+<link href="public\components\bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+
+.centered{
+  text-align: center;
+}
+
+.padded{
+  padding: 10px;
+}
+
+.padded-top{
+  padding-top: 20px;
+}
+
+.bigger-text{
+  font-size: 125%;
+}
+
+textarea{
+  max-width: 100%;
+}
+
+.titulo{
+  font-size: 300%;
+
+  color: inherit;
+}
+
+.porra{
+  content:"\e250";
+}
+
+</style>
+
 <div class="container">
-    <div class="row">
+    <div class=""> <!--ORIGINAL class="row-->"
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reclamacoes</div>
+            <div class="jumbotron panel-default">
+                <!--<h3 class="centered">Reclamacoes</h3>-->
 
-                <div class="panel-body">
-                  <table class="table table-striped">
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Titulo</th>
-                        <th>Descricao</th>
-                        <th>Ações</th>
-                        <th>Data de criação</th>
+                @foreach($reclamacoes as $reclamacao)
+                <div class="row">
 
-                    </tr>
-                    @foreach($reclamacoes as $reclamacao)
-                    <tr>
-                        <td>{{ $reclamacao->usuario->name }}</td>
-                        <td>{{ $reclamacao->titulo }}</td>
-                        <td>{{ $reclamacao->descricao }}</td>
-                        <td><a href="{{ url('/reclamacao', $reclamacao->id) }}">Detalhes</a></td>
-                        <td>{{ $reclamacao->created_at }}</td>
-                    </tr>
-                    @endforeach
-                  </table>
+                  <div>
+
+                    <a class="titulo" href="{{ url('/reclamacao', $reclamacao->id) }}"><i class="fa fa-circle"></i> {{ $reclamacao->titulo}} </a>
+
+                  </div>
+
+                  <h6 class="col-md-10"><span class="glyphicon glyphicon-heart"></span> Endereço: </h6>
+
+
                 </div>
+                @endforeach
 
             </div>
         </div>
