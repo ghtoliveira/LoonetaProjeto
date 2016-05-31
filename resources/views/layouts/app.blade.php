@@ -17,6 +17,7 @@
     <!-- Styles -->
     <!--BOOTSTRAP BAIXADO DENTRO DA PASTA public/components-->
     <link href="{{asset ('components/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 

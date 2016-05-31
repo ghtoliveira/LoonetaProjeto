@@ -13,9 +13,11 @@
                                 <th>Usuario</th>
                                 <th>Titulo</th>
                                 <th>Descricao</th>
-                                <th>Ações</th>
+                                <th>Votar</th>
                                 <th>Votos Positivos</th>
                                 <th>Votos Negativos</th>
+                                <th>Status</th>
+                                <th>Tags</th>
                             </tr>
 
                             <tr>
@@ -43,6 +45,17 @@
                                 </td>
                                 <td>
                                     {{ $reclamacao->votos()->where('positivo', 0)->count() }}
+                                </td>
+                                <td>
+                                    {{ $reclamacao->status->nome }}
+                                </td>
+                                <td>
+                                    <table>
+                                        @foreach($reclamacao->tags as $tag)
+                                            <tr>{{ $tag->nome }}</tr>
+                                        @endforeach
+                                    </table>
+
                                 </td>
 
                             </tr>

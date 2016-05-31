@@ -17,4 +17,13 @@ class reclamacao extends Model
   public function votos(){
     return $this->hasMany('App\Voto');
   }
+
+  public function tags(){
+    return $this->belongsToMany('App\Tag', 'reclamacao_tag', 'reclamacao_id', 'tag_id');
+  }
+
+  public function status(){
+    return $this->belongsTo('App\Status');
+  }
+
 }
