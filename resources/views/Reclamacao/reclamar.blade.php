@@ -45,7 +45,7 @@ textarea{
             </div>
             <div class="form-group padded-top">
               <div class="col-md-6 col-md-offset-3">
-                <label for="tag">Selecione </label>
+                <label for="tag">Selecione uma tag para melhor categorizar o problema </label>
                 <select class="form-control" id="tag" name="tag">
                   @foreach($tags as $tag)
                     <option>{{ $tag->nome }}</option>

@@ -1,14 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style type="text/css">
+
+  .esquerda{
+    text-align: left;
+  }
+
+</style>
+
+
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="jumbotron"> <!--<div class="panel panel-default">-->
-                    <div class="panel-heading">{{ $reclamacao->titulo }}</div>
 
-                    <div class="">
+                    <div class="row" >
 
+                      <div class="col-md-4">
+                        <h3>{{ $reclamacao->titulo }}</h3>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-6 esquerda">
+                        <h6>Endereco: Rua Aqaui Tenente Coronel Capitão Sargento Soldado Zero</h6>
+                      </div>
+
+                      <div class="col-md-5 col-md-offset-1 esquerda">
+                        <h6>Adicionado por: {{$reclamacao->usuario->name}} </h6>
+                      </div>
+                    </div>
+
+                    <div class="table">
+                      <!--
                         <table class="table table-striped">
                             <tr>
                                 <th>Usuario</th>
@@ -61,7 +89,7 @@
 
                             </tr>
                         </table>
-                        
+                      -->
                     </div>
                 </div>
 
