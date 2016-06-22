@@ -1,14 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style type="text/css">
+
+  .esquerda{
+    text-align: left;
+  }
+
+</style>
+
+
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="jumbotron"> <!--<div class="panel panel-default">-->
-                    <div class="panel-heading">{{ $reclamacao->titulo }}</div>
 
-                    <div class="">
+                    <div class="row" >
 
+                      <div class="col-md-4">
+                        <h3>{{ $reclamacao->titulo }}</h3>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-6 esquerda">
+                        <h6>Endereco: Rua Aqaui Tenente Coronel Capitão Sargento Soldado Zero</h6>
+                      </div>
+
+                      <div class="col-md-5 col-md-offset-1 esquerda">
+                        <h6>Adicionado por: {{$reclamacao->usuario->name}} </h6>
+                      </div>
+                    </div>
+
+                    <div class="table">
+                      <!--
                         <table class="table table-striped">
                             <tr>
                                 <th>Usuario</th>
@@ -19,7 +47,6 @@
                                 <th>Votos Negativos</th>
                                 <th>Status</th>
                                 <th>Tags</th>
-                                <th>Denunciar</th>
                             </tr>
 
                             <tr>
@@ -59,11 +86,10 @@
                                     </table>
 
                                 </td>
-                                <td><a href="{{ route('getDenunciarReclamacao', $reclamacao->id) }}">Denunciar</a> </td>
 
                             </tr>
                         </table>
-                        
+                      -->
                     </div>
                 </div>
 
@@ -75,36 +101,16 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>Usuario</th>
+                                    <th>Titulo</th>
                                     <th>Comentario</th>
                                     <th>Voto</th>
-                                    <td>Opções</td>
-                                    @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
-                                        <th>Ações administrativas</th>
-                                    @endif
-
-
                                 </tr>
                                 @foreach($reclamacao->comentarios as $comentario)
                                     <tr>
                                         <td>{{ $comentario->usuario->name }}</td>
+                                        <td>{{ $comentario->titulo }}</td>
                                         <td>{{ $comentario->comentario }}</td>
                                         <td>{{ $comentario->usuario->votoReclamacao($reclamacao->id) }}</td>
-                                        @if(Auth::user()->id === $comentario->usuario->id)
-                                            <td>
-                                                <form class="form-inline" method="POST" action="{{ route('postDeletarComentario') }}">
-                                                    {!! csrf_field() !!}
-                                                    <div class="form-group">
-                                                        <input type="hidden" value="{{ $comentario->id }}" name="comentarioId">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="submit" class="btn btn-danger" value="Deletar Comentário">
-                                                    </div>
-                                                </form>
-
-
-                                            </td>
-
-                                        @endif
                                         @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
                                         <td>
                                             <table>
@@ -120,9 +126,27 @@
                                                     </form>
                                                 </tr>
                                                 <tr>
-                                                    @include('funcoes\partialMutarUsuario', array('usuario' => $comentario->usuario))
-
-
+                                                    @if(!$comentario->usuario->isMutado())
+                                                        <form class="form-inline" method="POST" action="{{ route('modMutarUsuario') }}">
+                                                            {!! csrf_field() !!}
+                                                            <div class="form-group">
+                                                                <input type="hidden" value="{{ $comentario->usuario->id }}" name="usuarioId">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="submit" class="btn btn-danger" value="Mutar Usuário">
+                                                            </div>
+                                                        </form>
+                                                    @else
+                                                        <form class="form-inline" method="POST" action="{{ route('modDesmutarUsuario') }}">
+                                                            {!! csrf_field() !!}
+                                                            <div class="form-group">
+                                                                <input type="hidden" value="{{ $comentario->usuario->id }}" name="usuarioId">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="submit" class="btn btn-primary" value="Desmutar Usuário">
+                                                            </div>
+                                                        </form>
+                                                    @endif
                                                 </tr>
                                             </table>
                                         </td>
@@ -142,9 +166,14 @@
                             <form class="form-horizontal" role="form" method="POST" action="comentar">
                                 {!! csrf_field() !!}
                                 <div class="form-group">
+                                    <label for="tituloReclamacao">Titulo</label>
+                                    <input type="text" name="titulo" class="form-control" id="tituloReclamacao"
+                                           placeholder="Titulo">
+                                </div>
+                                <div class="form-group">
                                     <label for="comentario">Comentario:</label>
                                     <textarea class="form-control" name="comentario" rows="2" id="descricaoReclamacao"
-                                              placeholder="Deixe seu comentário..."></textarea>
+                                              placeholder="Explique o seu problema..."></textarea>
                                 </div>
                                 <div class="form-group">
                                     <input name="reclamacaoId" type="hidden" value="{{ $reclamacao->id }}">
