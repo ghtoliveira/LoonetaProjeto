@@ -40,12 +40,17 @@ class ReclamacaoController extends Controller
 
     public function reclamacaoRedirect(Request $request)
     {
+
+        //TODO: Adicionar várias tags à reclamação
         $reclamacao = new Reclamacao;
         $tag = Tag::all()->where('nome', $request->input('tag'))->first();
         $status = Status::all()->where('nome', 'Não Enviada')->first();
 
         $reclamacao->titulo = $request->input('titulo');
         $reclamacao->descricao = $request->input('descricao');
+        $reclamacao->endereco = $request->input('endereco');
+        $reclamacao->bairro = $request->input('bairro');
+        $reclamacao->cidade = $request->input('cidade');
         $reclamacao->usuario_id = $request->user()->id;
         $reclamacao->status_id = $status->id;
         $reclamacao->save();

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Reclamacao as Reclamacao;
 
 class User extends Authenticatable
 {
@@ -29,6 +28,14 @@ class User extends Authenticatable
       return $this->hasMany('App\Voto');
     }
 
+    public function reclamacoes(){
+        return $this->hasMany('App\Reclamacao', 'usuario_id');
+    }
+
+    public function comentarios(){
+        return $this->hasMany('App\Comentario', 'usuario_id');
+    }
+
     public function funcoes(){
         return $this->belongsToMany('App\Funcao', 'funcao_usuario', 'usuario_id', 'funcao_id');
     }
@@ -36,7 +43,10 @@ class User extends Authenticatable
     public function punicoes(){
         return $this->belongsToMany('App\Punicao', 'usuario_punicao', 'usuario_id', 'punicao_id');
     }
-
+    
+    public function denuncias(){
+        return $this->hasMany('App\Denuncia');
+    }
     public function votoReclamacao($reclamacaoId){
 
         $voto = $this->votos()->where('reclamacao_id', $reclamacaoId)->first();
@@ -74,9 +84,7 @@ class User extends Authenticatable
         if($mutado){
            return true;
         }
-
         return false;
-
     }
 
 

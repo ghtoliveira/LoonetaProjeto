@@ -76,6 +76,11 @@
                       <li><a class="outline-right" href="{{ url('/reclamacoes') }}">Reclamações</a></li> <!--ORIGINAL sem class="outlined"-->
                       <li><a class="outline-right" href="{{ url('/reclamar') }}">Reclamar</a></li>
                     @endif
+                    @if(isset(Auth::user()->id))
+                        @if(Auth::user()->possuiFuncoes(array('Administrador', 'Moderador')))
+                            <li><a class="outline-right" href="{{ url('/painel') }}">Painel Administrativo</a> </li>
+                        @endif
+                    @endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->

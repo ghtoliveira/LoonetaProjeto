@@ -13,4 +13,9 @@ class Comentario extends Model
   public function usuario(){
     return $this->belongsTo('App\User');
   }
+
+  public function isDenunciado($id){
+    
+
+  }
 }

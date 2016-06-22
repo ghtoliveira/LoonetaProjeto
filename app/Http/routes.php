@@ -25,6 +25,15 @@ Route::get('/reclamacao/{id}', 'ReclamacaoController@detalhes');
 
 Route::post('post_criar_reclamacao', 'ReclamacaoController@reclamacaoRedirect');
 Route::post('reclamacao/comentar', 'ComentarioController@comentar');
+Route::get('/reclamacao/denunciar/{id}', array(
+    'as' => 'getDenunciarReclamacao',
+    'uses' => 'UsuarioController@getDenunciar'
+));
+Route::post('/reclamacao/denunciar', array(
+    'as' => 'postDenunciarReclamacao',
+    'uses' => 'UsuarioController@postDenunciar'
+));
+
 
 Route::post('/voto', array(
     'as' => 'voto',
@@ -41,6 +50,20 @@ Route::get('/administradores', array(
     'uses' => 'UsuarioController@administradores',
     'middleware' => 'funcoes',
     'funcoes' => ['administrador']
+));
+
+Route::get('/painel/buscar', array(
+    'as' => 'buscarUsuarioView',
+    'uses' => 'UsuarioController@getBuscar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/painel/buscar/email', array(
+    'as' => 'buscarUsuarioEmail',
+    'uses' => 'UsuarioController@getBuscarEmail',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
 ));
 
 Route::get('/moderadores', array(
@@ -85,6 +108,11 @@ Route::post('removerModerador', array (
     'funcoes' => ['administrador']
 ));
 
+Route::post('/comentario/deletar', array(
+    'as' => 'postDeletarComentario',
+    'uses' => 'ComentarioController@deletar',
+));
+
 Route::post('modDeletarComentario', array (
     'as' => 'modDeletarComentario',
     'uses' => 'ComentarioController@deletar',
@@ -105,6 +133,57 @@ Route::post('modDesmutarUsuario', array (
     'middleware' => 'funcoes',
     'funcoes' => ['administrador', 'moderador']
 ));
+
+Route::get('/painel', array(
+    'uses' => 'HomeController@painel',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+
+));
+
+Route::get('/painel/tags', array(
+    'as' => 'getTags',
+    'uses' => 'TagController@getTags',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/painel/status', array(
+    'as' => 'getStatuses',
+    'uses' => 'StatusController@getStatus',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/painel/tags/', array(
+    'as' => 'postAdicionarTag',
+    'uses' => 'TagController@postAdicionarTag',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/painel/status/', array(
+    'as' => 'postAdicionarStatus',
+    'uses' => 'StatusController@postAdicionarStatus',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/painel/mutarUsuario', array(
+    'as' => 'mutarUsuario',
+    'uses' => 'usuarioController@mutar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/painel/desmutarUsuario', array(
+    'as' => 'desmutarUsuario',
+    'uses' => 'usuarioController@desmutar',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+
 
 Route::auth();
 

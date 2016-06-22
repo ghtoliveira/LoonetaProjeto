@@ -18,6 +18,7 @@
                                 <th>Votos Negativos</th>
                                 <th>Status</th>
                                 <th>Tags</th>
+                                <th>Denunciar</th>
                             </tr>
 
                             <tr>
@@ -57,6 +58,7 @@
                                     </table>
 
                                 </td>
+                                <td><a href="{{ route('getDenunciarReclamacao', $reclamacao->id) }}">Denunciar</a> </td>
 
                             </tr>
                         </table>
@@ -71,16 +73,36 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>Usuario</th>
-                                    <th>Titulo</th>
                                     <th>Comentario</th>
                                     <th>Voto</th>
+                                    <td>Opções</td>
+                                    @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
+                                        <th>Ações administrativas</th>
+                                    @endif
+
+
                                 </tr>
                                 @foreach($reclamacao->comentarios as $comentario)
                                     <tr>
                                         <td>{{ $comentario->usuario->name }}</td>
-                                        <td>{{ $comentario->titulo }}</td>
                                         <td>{{ $comentario->comentario }}</td>
                                         <td>{{ $comentario->usuario->votoReclamacao($reclamacao->id) }}</td>
+                                        @if(Auth::user()->id === $comentario->usuario->id)
+                                            <td>
+                                                <form class="form-inline" method="POST" action="{{ route('postDeletarComentario') }}">
+                                                    {!! csrf_field() !!}
+                                                    <div class="form-group">
+                                                        <input type="hidden" value="{{ $comentario->id }}" name="comentarioId">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="submit" class="btn btn-danger" value="Deletar Comentário">
+                                                    </div>
+                                                </form>
+
+
+                                            </td>
+
+                                        @endif
                                         @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
                                         <td>
                                             <table>
@@ -96,27 +118,9 @@
                                                     </form>
                                                 </tr>
                                                 <tr>
-                                                    @if(!$comentario->usuario->isMutado())
-                                                        <form class="form-inline" method="POST" action="{{ route('modMutarUsuario') }}">
-                                                            {!! csrf_field() !!}
-                                                            <div class="form-group">
-                                                                <input type="hidden" value="{{ $comentario->usuario->id }}" name="usuarioId">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input type="submit" class="btn btn-danger" value="Mutar Usuário">
-                                                            </div>
-                                                        </form>
-                                                    @else
-                                                        <form class="form-inline" method="POST" action="{{ route('modDesmutarUsuario') }}">
-                                                            {!! csrf_field() !!}
-                                                            <div class="form-group">
-                                                                <input type="hidden" value="{{ $comentario->usuario->id }}" name="usuarioId">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input type="submit" class="btn btn-primary" value="Desmutar Usuário">
-                                                            </div>
-                                                        </form>
-                                                    @endif
+                                                    @include('funcoes\partialMutarUsuario', array('usuario' => $comentario->usuario))
+
+
                                                 </tr>
                                             </table>
                                         </td>
@@ -136,14 +140,9 @@
                             <form class="form-horizontal" role="form" method="POST" action="comentar">
                                 {!! csrf_field() !!}
                                 <div class="form-group">
-                                    <label for="tituloReclamacao">Titulo</label>
-                                    <input type="text" name="titulo" class="form-control" id="tituloReclamacao"
-                                           placeholder="Titulo">
-                                </div>
-                                <div class="form-group">
                                     <label for="comentario">Comentario:</label>
                                     <textarea class="form-control" name="comentario" rows="2" id="descricaoReclamacao"
-                                              placeholder="Explique o seu problema..."></textarea>
+                                              placeholder="Deixe seu comentário..."></textarea>
                                 </div>
                                 <div class="form-group">
                                     <input name="reclamacaoId" type="hidden" value="{{ $reclamacao->id }}">

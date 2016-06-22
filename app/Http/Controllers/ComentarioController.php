@@ -23,22 +23,19 @@ class ComentarioController extends Controller
        }
 
        $comentario = new Comentario;
-
-       $comentario->titulo = $request->input('titulo');
+       
        $comentario->comentario = $request->input('comentario');
        $comentario->reclamacao_id = $request->input('reclamacaoId');
        $comentario->usuario_id = $request->user()->id;
 
        $comentario->save();
 
-       $reclamacao = Reclamacao::find($request->input('reclamacaoId'));
-       return view('Reclamacao\reclamacaoDetalhe', array('reclamacao' => $reclamacao));
+       return redirect()->back();
    }
 
     public function deletar(Request $request){
         $comentario = Comentario::find($request->input('comentarioId'));
         $comentario->delete();
-        $reclamacao = Reclamacao::find($comentario->reclamacao_id);
-        return view('Reclamacao\reclamacaoDetalhe', array('reclamacao' => $reclamacao));
+        return redirect()->back();
     }
 }

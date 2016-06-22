@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Denuncia as Denuncia;
 
 class reclamacao extends Model
 {
@@ -25,5 +26,21 @@ class reclamacao extends Model
   public function status(){
     return $this->belongsTo('App\Status');
   }
+  
+  public function denuncias(){
+    return $this->hasMany('App\Denuncia');
+  }
 
+  public function isDenunciada($id){
+
+    $denuncia = Denuncia::all()->where('reclamacao_id', $id)->first();
+    if(isset($denuncia->id))
+      return true;
+    else
+      return false;
+
+    if(count($this->denuncias()->first()) > 0)
+      return true;
+    return false;
+  }
 }
