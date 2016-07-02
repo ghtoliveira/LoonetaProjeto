@@ -20,7 +20,7 @@
                     @endforeach
                 </table>
 
-                @include('status\partialAdicionarStatus');
+                @include('status\partialAdicionarStatus')
 
 
 

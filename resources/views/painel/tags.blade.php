@@ -18,7 +18,7 @@
                     @endforeach
                 </table>
 
-                @include('tags\partialAdicionarTag');
+                @include('tags\partialAdicionarTag')
 
 
 
