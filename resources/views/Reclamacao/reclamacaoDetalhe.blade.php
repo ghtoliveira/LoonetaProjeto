@@ -116,7 +116,8 @@ textarea{
 
                     <div class="row">
                       <div class="col-md-6">
-                        <img class="img-responsive img-rounded" src="https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/7/12/1342109726142/hole-in-road-didsbury-man-008.jpg" alt="" />
+                        <!--<img class="img-responsive img-rounded" src="https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/7/12/1342109726142/hole-in-road-didsbury-man-008.jpg" alt="" />-->
+                        <img class="img-responsive img-rounded" src="https://i.gyazo.com/253bff368f7710c30fd98c72d25ca693.png" alt="" />
                       </div>
 
                     </div>
