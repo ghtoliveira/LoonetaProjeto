@@ -140,7 +140,7 @@ class UsuarioController extends Controller
         $denuncia->save();
 
 
-
+        return redirect()->back();
 
 
 

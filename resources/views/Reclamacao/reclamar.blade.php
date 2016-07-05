@@ -36,23 +36,32 @@ textarea{
           <form class="form-horizontal" role="form" method="POST" action="post_criar_reclamacao">
             {!! csrf_field() !!}
             <div class="form-group padded-top">
+              <label>Titulo</label>
               <input type="text" name="titulo" class="form-control" id="tituloReclamacao" placeholder="Titulo">
             </div>
             <div class="form-group padded-top">
+              <label>Descrição do problema</label>
               <textarea class="form-control" name="descricao" rows="3" id="descricaoReclamacao" placeholder="Descrição do problema..."></textarea>
             </div>
             <div class="form-group padded-top">
+              <label>Endereço</label>
               <input type="text" class="form-control" name="endereco" rows="3" id="endereco" placeholder="Endereço"/>
             </div>
             <div class="form-group padded-top">
+              <label>Bairro</label>
               <input type="text" class="form-control" name="bairro" rows="3" id="bairro" placeholder="Bairro"/>
             </div>
             <div class="form-group padded-top">
+              <label>Cidade</label>
               <input type="text" class="form-control" name="cidade" rows="3" id="cidade" placeholder="Cidade"/>
             </div>
             <div class="form-group padded-top">
+              <label>Link da imagem</label>
+              <input type="text" class="form-control" name="imagem" rows="3" id="imagem" placeholder="http://www.linkdaimagem.com"/>
+            </div>
+            <div class="form-group padded-top">
               <div class="col-md-6 col-md-offset-3">
-                <label for="tag">Em que categoria(s) esse problema se enquadra? </label>
+                <label for="tag">Em que categoria esse problema se enquadra? </label>
                 <select class="form-control" id="tag" name="tag">
                   @foreach($tags as $tag)
                     <option>{{ $tag->nome }}</option>

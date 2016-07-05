@@ -8,7 +8,9 @@
             <form class="form-inline" role="form" method="GET" action="{{ route('buscarUsuarioEmail') }}">
                 <div class="form-group">
                     <label for="email">Email: </label>
+
                     <input class="form-control" type="email" name="email" id="email">
+
                 </div>
                 <div class="form-group">
                     <input class="form-control btn btn-default" type="submit" value="Procurar">

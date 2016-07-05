@@ -258,10 +258,13 @@
                             <a href="{{ url ('/painel/status') }}"><i class="fa fa-edit fa-fw"></i> Status</a>
                         </li>
                         <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('forms') }}"><i class="fa fa-comment fa-fw"></i> Reclamações</a>
+                            <a href="{{ url ('/painel/reclamacoes') }}"><i class="fa fa-comment fa-fw"></i> Reclamações</a>
                         </li>
                         <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                             <a href="{{ url ('documentation') }}"><i class="fa fa-question-circle fa-fw"></i> Ajuda</a>
+                        </li>
+                        <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/home') }}"><i class="fa fa-chevron-circle-left fa-fw"></i> Voltar ao site</a>
                         </li>
                     </ul>
                 </div>

@@ -183,7 +183,61 @@ Route::post('/painel/desmutarUsuario', array(
     'funcoes' => ['administrador', 'moderador']
 ));
 
+Route::get('/reclamacao/denuncias/{id}', array(
+    'as' => 'reclamacaoDenuncias',
+    'uses' => 'ReclamacaoController@reclamacaoDenuncias',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
 
+Route::get('/painel/reclamacoes/denunciadas', array(
+    'as' => 'reclamacoesDenunciadas',
+    'uses' => 'HomeController@reclamacoesDenunciadas',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/painel/buscarReclamacoes/', array(
+    'as' => 'buscarReclamacoesTitulo',
+    'uses' => 'ReclamacaoController@buscarReclamacaoTitulo',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/painel/reclamacoes', array(
+    'as' => 'painelReclamacoes',
+    'uses' => 'ReclamacaoController@painelReclamacoes',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/painel/reclamacoes/denuncias/{id}', array(
+    'as' => 'denunciasReclamacao',
+    'uses' => 'DenunciaController@getDenunciasReclamacao',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/painel/reclamacoes/denuncia/retirar', array(
+    'as' => 'retirarDenuncia',
+    'uses' => 'DenunciaController@postRetirarDenuncia',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::get('/reclamacoes/encaminhar/{id}', array(
+    'as' => 'encaminharReclamacao',
+    'uses' => 'ReclamacaoController@getEncaminharReclamacao',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
+
+Route::post('/reclamacao/encaminhar', array(
+    'as' => 'postEncaminharReclamacao',
+    'uses' => 'ReclamacaoController@postEncaminharReclamacao',
+    'middleware' => 'funcoes',
+    'funcoes' => ['administrador', 'moderador']
+));
 
 Route::auth();
 

@@ -24,12 +24,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('home');
     }
 
-    //TODO: Remover isso, apenas para testes.
+
     public function painel(){
 
         /*
@@ -58,5 +57,18 @@ class HomeController extends Controller
             'numReclamacoesDenunciadas' => $numReclamacoesDenunciadas
             ));
 
+    }
+
+    public function reclamacoesDenunciadas(){
+        $reclamacoes = Reclamacao::all();
+        $reclamacoesDenunciadas = array();
+
+        foreach($reclamacoes as $reclamacao){
+            if($reclamacao->isDenunciada($reclamacao->id))
+                $reclamacoesDenunciadas[] = $reclamacao;
+        }
+
+        //return view('painel\listaReclamacoesDenunciadas');
+        return view('painel\listaReclamacoesDenunciadas', array('reclamacoes' => $reclamacoesDenunciadas));
     }
 }

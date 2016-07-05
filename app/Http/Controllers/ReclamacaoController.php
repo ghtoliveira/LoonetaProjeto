@@ -10,6 +10,7 @@ use App\Reclamacao as Reclamacao;
 use App\Status as Status;
 use App\Tag as Tag;
 use App\Voto as Voto;
+use Illuminate\Support\Facades\Mail as Mail;
 
 class ReclamacaoController extends Controller
 {
@@ -24,8 +25,13 @@ class ReclamacaoController extends Controller
         return view('Reclamacao\reclamacoes', array('reclamacoes' => $reclamacao));
     }
 
-    public function reclamar()
+    public function reclamar(Request $request)
     {
+        if ($request->user()->isMutado()) {
+            //TODO: Criar uma view que informe aos usuários que eles estão mutados
+            echo "Voce esta mutado";
+            return null;
+        }
         $tags = Tag::all();
 
         return view('Reclamacao\reclamar', array('tags' => $tags));
@@ -51,6 +57,7 @@ class ReclamacaoController extends Controller
         $reclamacao->endereco = $request->input('endereco');
         $reclamacao->bairro = $request->input('bairro');
         $reclamacao->cidade = $request->input('cidade');
+        $reclamacao->imagem = $request->input('imagem');
         $reclamacao->usuario_id = $request->user()->id;
         $reclamacao->status_id = $status->id;
         $reclamacao->save();
@@ -106,7 +113,53 @@ class ReclamacaoController extends Controller
             $novoVoto->save();
         }
 
+        return redirect()->back();
+
     }
 
+    public function reclamacaoDenuncias($id){
+        echo $id;
+    }
+
+
+    public function buscarReclamacaoTitulo(Request $request){
+        $reclamacoes = Reclamacao::where('titulo',$request->input('titulo'))->orwhere('titulo', 'like', '%' . $request->input('titulo') . '%')->get();
+
+        return view('painel\buscarReclamacoes', array('reclamacoes' => $reclamacoes));
+    }
+
+    public function painelReclamacoes(){
+        return view('painel\buscarReclamacoes');
+    }
+
+    public function reclamacoesDenunciadas(){
+        $reclamacoes = Reclamacao::all();
+        $reclamacoesDenunciadas = array();
+
+        foreach($reclamacoes as $reclamacao){
+            if($reclamacao->isDenunciada($reclamacao->id))
+                $reclamacoesDenunciadas[] = $reclamacao;
+        }
+
+
+        return view('painel\listaReclamacoesDenunciadas', array('reclamacoes' => $reclamacoesDenunciadas));
+    }
+
+    public function getEncaminharReclamacao($id){
+        $statuses = Status::all();
+        return view('Reclamacao\encaminhar', array('idReclamacao' => $id, 'statuses' => $statuses));
+    }
+
+    public function postEncaminharReclamacao(Request $request){
+        $reclamacao = Reclamacao::find($request->input('idReclamacao'));
+        $status = Status::all()->where('nome', $request->input('nomeStatus'))->first();
+        $reclamacao->status_id = $status->id;
+        $reclamacao->update();
+
+        //mail($request->input('emailOrgao'),$request->input('assunto'), $request->input('corpoEmail'));
+
+
+        return $this->index();
+    }
 
 }

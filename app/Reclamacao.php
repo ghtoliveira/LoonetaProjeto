@@ -38,9 +38,5 @@ class reclamacao extends Model
       return true;
     else
       return false;
-
-    if(count($this->denuncias()->first()) > 0)
-      return true;
-    return false;
   }
 }

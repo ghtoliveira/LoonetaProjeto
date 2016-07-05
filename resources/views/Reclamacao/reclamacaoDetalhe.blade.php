@@ -20,6 +20,9 @@
                                 <th>Status</th>
                                 <th>Tags</th>
                                 <th>Denunciar</th>
+                                @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
+                                    <th>Ações administrativas</th>
+                                @endif
                             </tr>
 
                             <tr>
@@ -60,6 +63,9 @@
 
                                 </td>
                                 <td><a href="{{ route('getDenunciarReclamacao', $reclamacao->id) }}">Denunciar</a> </td>
+                                @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
+                                    <th><a class="btn btn-success" href="{{route('encaminharReclamacao', $reclamacao->id)}}">Encaminhar</a> </th>
+                                @endif
 
                             </tr>
                         </table>
@@ -103,6 +109,10 @@
 
 
                                             </td>
+
+                                        @elseif(Auth::user()->possuiFuncoes(['administrador', 'moderador']))
+                                            <td>Nenhuma opção disponível</td>
+
 
                                         @endif
                                         @if(Auth::user()->possuiFuncoes(['administrador', 'moderador']))

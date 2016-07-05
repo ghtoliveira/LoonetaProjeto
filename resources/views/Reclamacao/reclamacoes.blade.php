@@ -75,16 +75,20 @@ img{
                   <div class=""> <!--SE POR "row" AQUI DA UM ESPAÇO ABAIXO-->
                     <!--ENDEREÇO-->
                     <div class="col-md-6">
-                      <h6 >Endereço: Rua Tenente Coronel Senador Capitão 1234 </h6>
+                      <h6 >{{ $reclamacao->endereco }}</h6>
                     </div>
 
                     <div class="col-md-4">
-                      <h6>Tags: Pavimentação, Iluminação, Abandono, Teste</h6>
+                      <h6>Tags:
+                          @foreach($reclamacao->tags as $tag)
+                            {{ $tag->nome }}
+                          @endforeach
+                      </h6>
                     </div>
 
                     <!--RATING-->
                     <div class="col-md-2">
-                      <h6>999 <span class="glyphicon glyphicon-thumbs-up thumbs-up-color"></span> &nbsp 333 <span class="glyphicon glyphicon-thumbs-down thumbs-down-color"></span> </h6>
+                      <h6>{{ $reclamacao->votos()->where('positivo', 1)->count() }} <span class="glyphicon glyphicon-thumbs-up thumbs-up-color"></span> &nbsp {{ $reclamacao->votos()->where('positivo', 0)->count() }} <span class="glyphicon glyphicon-thumbs-down thumbs-down-color"></span> </h6>
                     </div>
                   </div>
 
@@ -94,13 +98,13 @@ img{
                   <!--DESCRIÇÃO-->
                   <div class="form-group col-md-7">
                     <textarea name="descricao" readonly="readonly" rows="3" cols="80">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      {{ $reclamacao->descricao }}
                     </textarea>
                   </div>
 
                   <div class="row">
                     <div class="col-md-5">
-                      <img class="img-responsive img-rounded" src="https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/7/12/1342109726142/hole-in-road-didsbury-man-008.jpg" alt="" />
+                      <img class="img-responsive img-rounded" src="{{ $reclamacao->imagem }}" alt="Sem imagem" />
                     </div>
 
                   </div>
