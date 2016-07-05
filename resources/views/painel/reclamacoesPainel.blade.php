@@ -22,7 +22,7 @@
     <div class="col-sm-10 col-sm-offset-1">
         <div class="row">
             @if(isset($usuario))
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
@@ -39,7 +39,7 @@
                 <button class="btn btn-default" data-toggle="collapse" data-target="#reclamacoes">Ver Reclamacoes</button>
                 <div id="reclamacoes" class="collapse">
                     @if(sizeof($reclamacoes) > 0)
-                        <table class="table table-bordered">
+                        <table class="table table-striped">
                             <tr>
                                 <th>ID</th>
                                 <th>Titulo</th>
@@ -63,7 +63,7 @@
                 <button class="btn btn-default" data-toggle="collapse" data-target="#comentarios">Ver Comentários</button>
                 <div id="comentarios" class="collapse">
                     @if(sizeof($comentarios) > 0)
-                        <table class="table table-bordered">
+                        <table class="table table-striped">
                             <tr>
                                 <th>ID</th>
                                 <th>Comentário</th>

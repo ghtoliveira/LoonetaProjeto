@@ -61,7 +61,7 @@ img{
 <div class="container">
     <div class="row"> <!--ORIGINAL class="row-->
         <div class="col-md-12">
-            <div class="jumbotron panel-default">
+            <div class="jumbotron">
                 <!--<h3 class="centered">Reclamacoes</h3>-->
 
                 @foreach($reclamacoes as $reclamacao)
@@ -93,20 +93,50 @@ img{
                   </div>
 
 
+                  <div class="">
+                    <!--CIDADE-->
+                    <div class="col-md-6">
+                      <h6>Cidade: Santa Cruz do Sul</h6>
+                    </div>
+
+                    <div class="col-md-6">
+                      <!--BAIRRO-->
+                      <h6>Bairro: Arroio Grande</h6>
+                    </div>
+                  </div>
+
+
                   <br><br>
 
                   <!--DESCRIÇÃO-->
-                  <div class="form-group col-md-7">
-                    <textarea name="descricao" readonly="readonly" rows="3" cols="80">
+
+                  <div class="form-group col-md-6">
+                    <textarea name="descricao" readonly="readonly" rows="3" cols="70">
                       {{ $reclamacao->descricao }}
                     </textarea>
                   </div>
 
                   <div class="row">
-                    <div class="col-md-5">
+
+                    <div class="col-md-6">
                       <img class="img-responsive img-rounded" src="{{ $reclamacao->imagem }}" alt="Sem imagem" />
+                      <!--<img class="img-responsive img-rounded" src="https://static-secure.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/7/12/1342109726142/hole-in-road-didsbury-man-008.jpg" alt="" />-->
                     </div>
 
+                  </div>
+
+                  <div class="">
+                    <div class="col-md-6">
+                      <!--DATA-->
+                      <h6>Adicionado em: 28/06/2016</h6>
+                    </div>
+                  </div>
+
+                  <div class="">
+                    <div class="col-md-6">
+                      <!--USUARIO-->
+                      <h6>Adicionado por: Fulano Siclano de Tal</h6>
+                    </div>
                   </div>
 
                   <br><br><br><hr class="ruler-color">

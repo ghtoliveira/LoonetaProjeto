@@ -78,7 +78,7 @@
                     @endif
                     @if(isset(Auth::user()->id))
                         @if(Auth::user()->possuiFuncoes(array('Administrador', 'Moderador')))
-                            <li><a class="outline-right" href="{{ url('/painel') }}">Painel Administrativo</a> </li>
+                            <li><a class="outline-right" href="{{ url('/painel') }}" style="width:120%">Painel Administrativo</a> </li>
                         @endif
                     @endif
                 </ul>
